@@ -7,16 +7,13 @@ function DataFetchingComponent() {
   // State to hold the fetched data
   const [data, setData] = useState([]);
 
-  // Fetching data inside useEffect
   useEffect(() => {
-    axios.get('http://localhost:5000/api/data') // Your backend API URL
-      .then(response => {
-        setData(response.data); // Set the fetched data to the state
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error); // Handle error
-      });
-  }, []); // Empty dependency array to run this effect only once after component mounts
+    // Fetch data from the backend API
+    axios.get(`${process.env.REACT_APP_API_URL}/data`)
+      .then(response => setData(response.data))  // Assuming the API returns an array of data
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);  // The empty dependency array ensures this runs once when the component mounts
+ // The empty dependency array ensures this runs once when the component mounts
 
   return (
     <div>
