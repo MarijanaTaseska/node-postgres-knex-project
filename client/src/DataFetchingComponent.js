@@ -4,6 +4,10 @@ import axios from 'axios';
 function DataFetchingComponent() {
   // State to hold the fetched data
   const [data, setData] = useState([]);
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-CA'); // 'en-CA' ensures the format is YYYY-MM-DD
+  }
 
   useEffect(() => {
     console.log('API URL:', process.env.REACT_APP_API_URL);
@@ -22,11 +26,33 @@ function DataFetchingComponent() {
     <div>
       <h1>Fetched Data</h1>
       {/* Render the fetched data */}
-      <ul>
-        {data.map(item => (
-          <li key={item.student_id}>{item.first_name} {item.last_name} {item.email}</li> // Assuming each data item has 'id' and 'name' properties
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Date of Birth (YYYY-MM-DD)</th>
+            <th>Grade</th>
+            <th>Created at</th>
+            {/* Add more columns here based on your data structure */}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.student_id}>
+              <td>{item.student_id}</td>  
+              <td>{item.first_name}</td>
+              <td>{item.last_name}</td>  
+              <td>{item.email}</td>  
+              <td>{formatDate(item.date_of_birth)}</td> 
+              <td>{item.grade_level}</td>
+              <td>{item.created_at}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
