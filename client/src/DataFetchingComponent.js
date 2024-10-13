@@ -48,7 +48,7 @@ function DataFetchingComponent() {
               <td>{item.email}</td>  
               <td>{formatDate(item.date_of_birth)}</td> 
               <td>{item.grade_level}</td>
-              <td>{item.created_at}</td>
+              <td>{formatDate(item.created_at)}</td>
             </tr>
           ))}
         </tbody>
